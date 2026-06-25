@@ -1,18 +1,20 @@
-local function gh(repo) return 'https://github.com/' .. repo end
-
--- Useful plugin to show you pending keybinds.
-vim.pack.add { gh 'folke/which-key.nvim' }
-require('which-key').setup {
-  -- Delay between pressing a key and opening which-key (milliseconds)
-  delay = 0,
-  icons = { mappings = vim.g.have_nerd_font },
-  -- Document existing key chains
-  spec = {
-    { '<leader>s', group = '[S]earch', mode = { 'n', 'v' } },
-    { '<leader>t', group = '[T]oggle' },
-    { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } }, -- Enable gitsigns recommended keymaps first
-    { 'gr', group = 'LSP Actions', mode = { 'n' } },
+return {
+  "folke/which-key.nvim",
+  event = "VeryLazy", -- se carga cuando el editor está inactivo
+  dependencies = {
+    "echasnovski/mini.icons", -- o "nvim-tree/nvim-web-devicons"
   },
+  opts = {
+    -- Configuración visual del popup
+    win = {
+      border = "rounded", -- bordes redondeados
+    },
+    -- Puedes añadir más opciones si quieres
+    -- layout = { align = "center" },
+    -- preset = "modern",
+  },
+  config = function(_, opts)
+    require("which-key").setup(opts)
+    -- No necesitas wk.add() aquí, porque which-key leerá los keymaps con desc
+  end,
 }
-
--- vim: ts=2 sts=2 sw=2 et
